@@ -398,7 +398,7 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   statusPill: {
-    borderRadius: Radius.pill,
+    borderRadius: KoroRadius.pill,
     paddingHorizontal: 8,
     paddingVertical: 4,
     backgroundColor: '#FFF2D8',
