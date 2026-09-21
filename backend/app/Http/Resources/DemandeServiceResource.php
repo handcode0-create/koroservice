@@ -54,8 +54,9 @@ class DemandeServiceResource extends JsonResource
                     'nom_affichage' => $this->profilPrestataireSelectionne->nom_affichage,
                 ] : null
             ),
-            'photos' => PhotoDemandeResource::collection(
-                $this->whenLoaded('photos')
+            'photos' => $this->whenLoaded(
+                'photos',
+                fn () => PhotoDemandeResource::collection($this->photos)
             ),
             'created_at' => $this->created_at?->toISOString(),
             'updated_at' => $this->updated_at?->toISOString(),
