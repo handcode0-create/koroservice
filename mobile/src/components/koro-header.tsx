@@ -76,11 +76,13 @@ const styles = StyleSheet.create({
   logoText: {
     color: '#FFFFFF',
     fontSize: 13,
+    fontFamily: 'Poppins_900Black',
     fontWeight: '900',
   },
   brand: {
     color: '#F8FAFC',
     fontSize: 12,
+    fontFamily: 'Poppins_900Black',
     fontWeight: '900',
   },
   navItem: {
@@ -99,11 +101,13 @@ const styles = StyleSheet.create({
   navText: {
     color: '#94A3B8',
     fontSize: 11,
+    fontFamily: 'Poppins_700Bold',
     fontWeight: '700',
   },
   navActiveText: {
     color: '#FFFFFF',
     fontSize: 11,
+    fontFamily: 'Poppins_900Black',
     fontWeight: '900',
   },
 });
