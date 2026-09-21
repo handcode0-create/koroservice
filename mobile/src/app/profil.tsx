@@ -233,6 +233,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F7F8FA',
     borderRadius: 14,
     paddingHorizontal: 13,
+    fontFamily: 'Poppins_400Regular',
     fontSize: 13,
     color: theme.text,
   },
