@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProfilPrestataire extends \Illuminate\Database\Eloquent\Model
@@ -61,5 +62,13 @@ class ProfilPrestataire extends \Illuminate\Database\Eloquent\Model
             'profil_prestataire_id',
             'categorie_service_id'
         )->withPivot('principal');
+    }
+
+    public function zonesIntervention(): HasMany
+    {
+        return $this->hasMany(
+            ZoneIntervention::class,
+            'profil_prestataire_id'
+        );
     }
 }
