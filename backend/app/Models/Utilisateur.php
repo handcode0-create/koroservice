@@ -6,6 +6,7 @@ use Database\Factories\UtilisateurFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -58,6 +59,11 @@ class Utilisateur extends Authenticatable
     public function profilPrestataire(): HasOne
     {
         return $this->hasOne(ProfilPrestataire::class);
+    }
+
+    public function demandesServices(): HasMany
+    {
+        return $this->hasMany(DemandeService::class);
     }
 
     public function getAuthPassword(): string
