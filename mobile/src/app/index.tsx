@@ -1,17 +1,38 @@
 import { useRouter } from 'expo-router';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TextInput, Pressable, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { SymbolView } from 'expo-symbols';
 
-import { KoroHeader } from '@/components/koro-header';
-import { Colors, MaxContentWidth, Radius, Spacing } from '@/constants/theme';
+import { KoroBottomNav } from '@/components/koro-bottom-nav';
+import { Colors, Radius, Spacing } from '@/constants/theme';
 
-const theme = Colors.dark;
+const theme = Colors.light;
 
 const SERVICES = [
-  { letter: 'P', title: 'Plomberie', subtitle: 'Fuites, robinets, canalisations' },
-  { letter: 'E', title: 'Électricité', subtitle: 'Pannes, prises, installations' },
-  { letter: 'C', title: 'Climatisation', subtitle: 'Dépannage et entretien' },
+  { icon: 'drop.fill', title: 'Plomberie', color: '#1976FF' },
+  { icon: 'bolt.fill', title: 'Électricité', color: '#F59E0B' },
+  { icon: 'snowflake', title: 'Climatisation', color: '#2B7BFF' },
+  { icon: 'paintbrush.fill', title: 'Peinture', color: '#F97316' },
+  { icon: 'sparkles', title: 'Nettoyage', color: '#6B46C1' },
+  { icon: 'leaf.fill', title: 'Jardinage', color: '#1FAF6A' },
 ];
+
+function ProfessionalVisual() {
+  return (
+    <View style={styles.visual}>
+      <View style={styles.orangeBlob} />
+      <View style={styles.plantOne} />
+      <View style={styles.plantTwo} />
+      <View style={styles.personBody}>
+        <View style={styles.personHead} />
+        <View style={styles.cap} />
+        <View style={styles.personShirt} />
+        <View style={styles.personArmOne} />
+        <View style={styles.personArmTwo} />
+      </View>
+    </View>
+  );
+}
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -21,82 +42,124 @@ export default function HomeScreen() {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}>
-        <View style={[styles.shell, { maxWidth: MaxContentWidth }]}>
-          <KoroHeader />
-
-          <View style={styles.locationPill}>
-            <View style={styles.locationDot} />
-            <Text style={styles.locationText}>Abidjan</Text>
-            <Text style={styles.locationMuted}>· Choisir une zone</Text>
-          </View>
-
-          <View style={styles.hero}>
-            <View style={styles.verifiedRow}>
-              <Text style={styles.verifiedMark}>✓</Text>
-              <Text style={styles.verifiedText}>Prestataires vérifiés</Text>
+        <View style={styles.container}>
+          <View style={styles.topRow}>
+            <View style={styles.identity}>
+              <View style={styles.avatar}>
+                <Text style={styles.avatarText}>K</Text>
+              </View>
+              <View>
+                <Text style={styles.greeting}>Bonjour,</Text>
+                <Text style={styles.name}>Koffi 👋</Text>
+              </View>
             </View>
 
-            <Text style={styles.heroTitle}>
-              Un professionnel
-              {'\n'}
-              fiable,
-              {'\n'}
-              <Text style={styles.heroAccent}>quand vous en avez besoin.</Text>
-            </Text>
-
-            <Text style={styles.heroDescription}>
-              Décrivez votre besoin, indiquez votre quartier et trouvez le bon professionnel près de chez vous.
-            </Text>
-
-            <Pressable
-              onPress={() => router.push('/demandes')}
-              style={({ pressed }) => [
-                styles.primaryButton,
-                pressed && styles.pressed,
-              ]}>
-              <Text style={styles.primaryButtonText}>+  Demander un service</Text>
-              <Text style={styles.primaryArrow}>→</Text>
+            <Pressable style={styles.bell}>
+              <SymbolView
+                size={21}
+                tintColor={theme.text}
+                name={{ ios: 'bell.fill', android: 'notifications', web: 'notifications' } as any}
+              />
+              <View style={styles.notificationDot} />
             </Pressable>
           </View>
 
-          <View>
-            <Text style={styles.sectionTitle}>Services populaires</Text>
-            <Text style={styles.sectionSubtitle}>Commencez par choisir votre besoin</Text>
+          <Text style={styles.question}>De quoi avez-vous besoin aujourd’hui ?</Text>
+
+          <View style={styles.searchBox}>
+            <SymbolView
+              size={19}
+              tintColor={theme.textSecondary}
+              name={{ ios: 'magnifyingglass', android: 'search', web: 'search' } as any}
+            />
+            <TextInput
+              placeholder="Rechercher un service..."
+              placeholderTextColor={theme.muted}
+              style={styles.searchInput}
+            />
           </View>
 
-          <View style={styles.services}>
-            {SERVICES.map((service) => (
+          <View style={styles.hero}>
+            <View style={styles.heroCopy}>
+              <View style={styles.heroBadge}>
+                <Text style={styles.heroBadgeDot}>✓</Text>
+                <Text style={styles.heroBadgeText}>Des pros vérifiés</Text>
+              </View>
+              <Text style={styles.heroTitle}>
+                pour tous vos besoins
+              </Text>
               <Pressable
-                key={service.title}
                 onPress={() => router.push('/demandes')}
-                style={({ pressed }) => [
-                  styles.serviceCard,
-                  pressed && styles.pressed,
-                ]}>
-                <View style={styles.serviceIcon}>
-                  <Text style={styles.serviceLetter}>{service.letter}</Text>
-                </View>
+                style={styles.heroButton}>
+                <Text style={styles.heroButtonText}>Faire une demande</Text>
+                <Text style={styles.heroButtonArrow}>→</Text>
+              </Pressable>
+            </View>
 
+            <ProfessionalVisual />
+          </View>
+
+          <View style={styles.sectionHeader}>
+            <View>
+              <Text style={styles.sectionTitle}>Services populaires</Text>
+              <Text style={styles.sectionSubtitle}>Choisissez un service</Text>
+            </View>
+            <Pressable onPress={() => router.push('/demandes')}>
+              <Text style={styles.seeAll}>Voir tout</Text>
+            </Pressable>
+          </View>
+
+          <View style={styles.servicesGrid}>
+            {SERVICES.map((service) => (
+              <Pressable key={service.title} onPress={() => router.push('/demandes')} style={styles.serviceCard}>
+                <View style={[styles.serviceIcon, { backgroundColor: service.color + '15' }]}>
+                  <SymbolView
+                    size={22}
+                    tintColor={service.color}
+                    name={{
+                      ios: service.icon,
+                      android: service.icon,
+                      web: service.icon,
+                    } as any}
+                  />
+                </View>
                 <Text style={styles.serviceTitle}>{service.title}</Text>
-                <Text style={styles.serviceSubtitle}>{service.subtitle}</Text>
-                <Text style={styles.serviceArrow}>→</Text>
               </Pressable>
             ))}
           </View>
 
-          <View style={styles.trustCard}>
-            <View style={styles.trustIcon}>
-              <Text style={styles.trustIconText}>✓</Text>
+          <View style={styles.sectionHeader}>
+            <View>
+              <Text style={styles.sectionTitle}>Vos demandes récentes</Text>
             </View>
-            <View style={styles.trustCopy}>
-              <Text style={styles.trustTitle}>Une plateforme pensée pour la proximité</Text>
-              <Text style={styles.trustText}>
-                Profils professionnels, zones d’intervention et suivi des demandes.
-              </Text>
-            </View>
+            <Pressable onPress={() => router.push('/demandes')}>
+              <Text style={styles.seeAll}>Voir tout</Text>
+            </Pressable>
           </View>
+
+          <Pressable onPress={() => router.push('/demandes')} style={styles.requestCard}>
+            <View style={[styles.requestIcon, { backgroundColor: '#EAF2FF' }]}>
+              <SymbolView
+                size={22}
+                tintColor="#2B7BFF"
+                name={{ ios: 'snowflake', android: 'ac_unit', web: 'ac_unit' } as any}
+              />
+            </View>
+            <View style={styles.requestCopy}>
+              <Text style={styles.requestTitle}>Climatisation</Text>
+              <Text style={styles.requestMeta}>Cocody, Angré</Text>
+            </View>
+            <View style={styles.requestRight}>
+              <View style={styles.statusPill}>
+                <Text style={styles.statusText}>En attente</Text>
+              </View>
+              <Text style={styles.requestDate}>Aujourd’hui</Text>
+            </View>
+          </Pressable>
         </View>
       </ScrollView>
+
+      <KoroBottomNav />
     </SafeAreaView>
   );
 }
@@ -104,202 +167,342 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#08111F',
+    backgroundColor: '#F7F8FA',
   },
   scrollContent: {
-    alignItems: 'center',
-    paddingBottom: 32,
+    paddingBottom: 105,
   },
-  shell: {
+  container: {
+    paddingHorizontal: 16,
+    gap: 16,
+    maxWidth: 720,
     width: '100%',
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.three,
+    alignSelf: 'center',
   },
-  locationPill: {
-    alignSelf: 'flex-start',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    paddingHorizontal: 13,
-    paddingVertical: 8,
-    borderRadius: Radius.pill,
-    backgroundColor: '#17233A',
-  },
-  locationDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 99,
-    backgroundColor: '#5A9BFF',
-  },
-  locationText: {
-    color: '#F8FAFC',
-    fontSize: 12,
-    fontWeight: '900',
-  },
-  locationMuted: {
-    color: '#71819A',
-    fontSize: 11,
-    fontWeight: '600',
-  },
-  hero: {
-    marginTop: 2,
-    backgroundColor: '#EAF2FF',
-    borderRadius: Radius.lg,
-    padding: Spacing.four,
-    gap: Spacing.two,
-  },
-  verifiedRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-  },
-  verifiedMark: {
-    color: '#15803D',
-    fontSize: 14,
-    fontWeight: '900',
-  },
-  verifiedText: {
-    color: '#15803D',
-    fontSize: 11,
-    fontWeight: '900',
-  },
-  heroTitle: {
-    color: '#FFFFFF',
-    fontSize: 28,
-    lineHeight: 31,
-    fontWeight: '900',
-    letterSpacing: -0.6,
-    marginTop: 2,
-  },
-  heroAccent: {
-    color: '#5A9BFF',
-  },
-  heroDescription: {
-    color: '#90A0B6',
-    fontSize: 13,
-    lineHeight: 19,
-    fontWeight: '600',
-    marginTop: 4,
-  },
-  primaryButton: {
-    minHeight: 48,
-    borderRadius: Radius.md,
-    paddingHorizontal: 14,
+  topRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#5A9BFF',
-    marginTop: 7,
+    paddingTop: 8,
   },
-  primaryButtonText: {
-    color: '#FFFFFF',
-    fontSize: 13,
-    fontWeight: '900',
+  identity: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
   },
-  primaryArrow: {
-    color: '#FFFFFF',
+  avatar: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: '#D7E6FF',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  avatarText: {
+    color: '#0F4AB8',
     fontSize: 18,
     fontWeight: '900',
+  },
+  greeting: {
+    color: '#66758A',
+    fontSize: 11,
+    fontWeight: '600',
+  },
+  name: {
+    color: '#0B1220',
+    fontSize: 16,
+    fontWeight: '900',
+    marginTop: 1,
+  },
+  bell: {
+    width: 42,
+    height: 42,
+    borderRadius: 21,
+    backgroundColor: '#FFFFFF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+  },
+  notificationDot: {
+    position: 'absolute',
+    right: 10,
+    top: 9,
+    width: 6,
+    height: 6,
+    borderRadius: 99,
+    backgroundColor: '#F59E0B',
+  },
+  question: {
+    color: '#0B1220',
+    fontSize: 19,
+    lineHeight: 25,
+    fontWeight: '900',
+    marginTop: 2,
+  },
+  searchBox: {
+    height: 46,
+    borderRadius: 15,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 9,
+    paddingHorizontal: 13,
+  },
+  searchInput: {
+    flex: 1,
+    color: '#0B1220',
+    fontSize: 13,
+    fontWeight: '600',
+    paddingVertical: 0,
+  },
+  hero: {
+    minHeight: 148,
+    borderRadius: 22,
+    backgroundColor: '#0B1E3A',
+    overflow: 'hidden',
+    flexDirection: 'row',
+    paddingLeft: 18,
+  },
+  heroCopy: {
+    flex: 1,
+    justifyContent: 'center',
+    gap: 8,
+    zIndex: 2,
+  },
+  heroBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+  },
+  heroBadgeDot: {
+    color: '#4DA3FF',
+    fontSize: 12,
+    fontWeight: '900',
+  },
+  heroBadgeText: {
+    color: '#FFFFFF',
+    fontSize: 11,
+    fontWeight: '800',
+  },
+  heroTitle: {
+    color: '#FFFFFF',
+    fontSize: 20,
+    lineHeight: 23,
+    fontWeight: '900',
+    maxWidth: 190,
+  },
+  heroButton: {
+    alignSelf: 'flex-start',
+    minHeight: 35,
+    paddingHorizontal: 13,
+    borderRadius: 11,
+    backgroundColor: '#FFB020',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
+  },
+  heroButtonText: {
+    color: '#18243A',
+    fontSize: 10,
+    fontWeight: '900',
+  },
+  heroButtonArrow: {
+    color: '#18243A',
+    fontSize: 14,
+    fontWeight: '900',
+  },
+  visual: {
+    width: 150,
+    height: '100%',
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  orangeBlob: {
+    position: 'absolute',
+    right: -18,
+    top: 18,
+    width: 95,
+    height: 95,
+    borderRadius: 48,
+    backgroundColor: '#FFAA17',
+  },
+  plantOne: {
+    position: 'absolute',
+    right: 12,
+    bottom: 18,
+    width: 35,
+    height: 62,
+    borderRadius: 18,
+    backgroundColor: '#2E9A5B',
+    transform: [{ rotate: '28deg' }],
+  },
+  plantTwo: {
+    position: 'absolute',
+    right: 36,
+    bottom: 13,
+    width: 24,
+    height: 54,
+    borderRadius: 16,
+    backgroundColor: '#74C56A',
+    transform: [{ rotate: '-16deg' }],
+  },
+  personBody: {
+    position: 'absolute',
+    right: 26,
+    bottom: -4,
+    width: 82,
+    height: 126,
+    alignItems: 'center',
+  },
+  personHead: {
+    width: 46,
+    height: 46,
+    borderRadius: 23,
+    backgroundColor: '#7B4A2C',
+    marginTop: 6,
+    zIndex: 4,
+  },
+  cap: {
+    width: 55,
+    height: 16,
+    borderRadius: 8,
+    backgroundColor: '#0C3B7A',
+    position: 'absolute',
+    top: 2,
+    zIndex: 5,
+  },
+  personShirt: {
+    width: 72,
+    height: 74,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    backgroundColor: '#0D5BB5',
+    marginTop: -2,
+  },
+  personArmOne: {
+    width: 54,
+    height: 14,
+    borderRadius: 8,
+    backgroundColor: '#7B4A2C',
+    position: 'absolute',
+    top: 64,
+    right: -4,
+    transform: [{ rotate: '28deg' }],
+  },
+  personArmTwo: {
+    width: 50,
+    height: 14,
+    borderRadius: 8,
+    backgroundColor: '#8A5330',
+    position: 'absolute',
+    top: 76,
+    left: -5,
+    transform: [{ rotate: '-28deg' }],
+  },
+  sectionHeader: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
   },
   sectionTitle: {
-    color: '#F8FAFC',
-    fontSize: 18,
-    lineHeight: 23,
+    color: '#0B1220',
+    fontSize: 16,
     fontWeight: '900',
   },
   sectionSubtitle: {
-    color: '#71819A',
-    fontSize: 11,
-    lineHeight: 17,
+    color: '#758396',
+    fontSize: 10,
     fontWeight: '600',
     marginTop: 2,
   },
-  services: {
-    gap: Spacing.two,
+  seeAll: {
+    color: '#1D68DD',
+    fontSize: 11,
+    fontWeight: '900',
+  },
+  servicesGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 9,
   },
   serviceCard: {
-    minHeight: 104,
-    borderRadius: Radius.md,
-    backgroundColor: '#111C30',
+    width: '31.7%',
+    minHeight: 91,
+    borderRadius: 16,
+    backgroundColor: '#FFFFFF',
     borderWidth: 1,
-    borderColor: '#23324A',
-    padding: Spacing.three,
+    borderColor: '#E2E8F0',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
   },
   serviceIcon: {
-    width: 38,
-    height: 38,
+    width: 34,
+    height: 34,
     borderRadius: 11,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#172B4B',
-    marginBottom: 9,
-  },
-  serviceLetter: {
-    color: '#5A9BFF',
-    fontSize: 15,
-    fontWeight: '900',
+    marginBottom: 8,
   },
   serviceTitle: {
-    color: '#F8FAFC',
-    fontSize: 14,
-    lineHeight: 19,
+    color: '#0B1220',
+    fontSize: 10,
     fontWeight: '900',
   },
-  serviceSubtitle: {
-    color: '#71819A',
-    fontSize: 11,
-    lineHeight: 17,
-    fontWeight: '600',
-    maxWidth: '80%',
-  },
-  serviceArrow: {
-    position: 'absolute',
-    right: 14,
-    bottom: 13,
-    color: '#5A9BFF',
-    fontSize: 17,
-    fontWeight: '900',
-  },
-  trustCard: {
-    borderRadius: Radius.md,
-    backgroundColor: '#0C182A',
-    padding: Spacing.three,
+  requestCard: {
+    minHeight: 68,
+    borderRadius: 15,
     borderWidth: 1,
-    borderColor: '#1A2A41',
+    borderColor: '#E2E8F0',
+    backgroundColor: '#FFFFFF',
+    padding: 10,
     flexDirection: 'row',
-    gap: Spacing.two,
     alignItems: 'center',
+    gap: 10,
   },
-  trustIcon: {
+  requestIcon: {
     width: 40,
     height: 40,
     borderRadius: 12,
-    backgroundColor: 'rgba(34, 211, 238, 0.12)',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  trustIconText: {
-    color: '#22D3EE',
-    fontSize: 18,
-    fontWeight: '900',
-  },
-  trustCopy: {
+  requestCopy: {
     flex: 1,
-    gap: 3,
+    gap: 2,
   },
-  trustTitle: {
-    color: '#F8FAFC',
-    fontSize: 13,
-    lineHeight: 18,
+  requestTitle: {
+    color: '#0B1220',
+    fontSize: 12,
     fontWeight: '900',
   },
-  trustText: {
-    color: '#71819A',
-    fontSize: 11,
-    lineHeight: 17,
+  requestMeta: {
+    color: '#79889A',
+    fontSize: 9,
     fontWeight: '600',
   },
-  pressed: {
-    opacity: 0.84,
+  requestRight: {
+    alignItems: 'flex-end',
+    gap: 4,
+  },
+  statusPill: {
+    borderRadius: Radius.pill,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    backgroundColor: '#FFF2D8',
+  },
+  statusText: {
+    color: '#A56A00',
+    fontSize: 8,
+    fontWeight: '900',
+  },
+  requestDate: {
+    color: '#8C98A8',
+    fontSize: 8,
+    fontWeight: '600',
   },
 });
