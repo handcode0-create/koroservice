@@ -15,7 +15,6 @@ use App\Models\PhotoDemande;
 use App\Support\Api\ReponseApi;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class DemandeServiceController extends Controller
 {
@@ -136,10 +135,14 @@ class DemandeServiceController extends Controller
         Request $request,
         DemandeService $demandeService
     ): void {
-        abort_unless(
-            $demandeService->utilisateur_id === $request->user()->id,
-            403,
-            'Vous n’avez pas accès à cette demande.'
-        );
+        if ($demandeService->utilisateur_id !== $request->user()->id) {
+            abort(response()->json([
+                'success' => false,
+                'error' => [
+                    'code' => 'FORBIDDEN',
+                    'message' => 'Vous n’avez pas accès à cette demande.',
+                ],
+            ], 403));
+        }
     }
 }
