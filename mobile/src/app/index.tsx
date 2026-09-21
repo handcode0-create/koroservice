@@ -142,10 +142,10 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#F7F8FA',
+    backgroundColor: KoroColors.background,
   },
   scrollContent: {
-    paddingBottom: 105,
+    paddingBottom: KoroLayout.bottomNavHeight + KoroSpacing.lg,
   },
   container: {
     paddingHorizontal: KoroLayout.screenHorizontalPadding,
@@ -239,9 +239,9 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
   },
   hero: {
-    minHeight: KoroLayout.bannerHeight,
+    height: KoroLayout.bannerHeight,
     borderRadius: KoroRadius.xl,
-    backgroundColor: '#0B1E3A',
+    backgroundColor: KoroColors.navy,
     overflow: 'hidden',
     flexDirection: 'row',
     paddingLeft: KoroSpacing.lg,
@@ -315,16 +315,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   sectionTitle: {
-    color: '#0B1220',
-    fontSize: KoroTypography.title.fontSize - 2,
-    fontFamily: 'Poppins_900Black',
-    fontWeight: '900',
+    ...KoroTypography.title,
+    color: KoroColors.text,
+    fontSize: 16,
   },
   sectionSubtitle: {
-    color: '#758396',
-    fontSize: KoroTypography.caption.fontSize,
-    fontFamily: 'Poppins_600SemiBold',
-    fontWeight: '600',
+    ...KoroTypography.caption,
+    color: KoroColors.textSecondary,
     marginTop: 2,
   },
   seeAll: {
@@ -344,9 +341,9 @@ const styles = StyleSheet.create({
     flex: 1,
     minHeight: KoroLayout.serviceCardHeight,
     borderRadius: KoroRadius.lg,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: KoroColors.surface,
     borderWidth: 1,
-    borderColor: '#E2E8F0',
+    borderColor: KoroColors.border,
     paddingHorizontal: KoroSpacing.md,
     paddingVertical: KoroSpacing.md,
     alignItems: 'flex-start',
@@ -361,10 +358,10 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   serviceTitle: {
-    color: '#0B1220',
-    fontSize: KoroTypography.caption.fontSize,
+    ...KoroTypography.caption,
+    color: KoroColors.text,
+    fontSize: 10,
     fontFamily: 'Poppins_900Black',
-    fontWeight: '900',
   },
   requestCard: {
     minHeight: 68,
@@ -389,16 +386,12 @@ const styles = StyleSheet.create({
     gap: 2,
   },
   requestTitle: {
-    color: '#0B1220',
-    fontSize: KoroTypography.body.fontSize,
-    fontFamily: 'Poppins_900Black',
-    fontWeight: '900',
+    ...KoroTypography.bodyStrong,
+    color: KoroColors.text,
   },
   requestMeta: {
-    color: '#79889A',
-    fontSize: 9,
-    fontFamily: 'Poppins_600SemiBold',
-    fontWeight: '600',
+    ...KoroTypography.caption,
+    color: KoroColors.textMuted,
   },
   requestRight: {
     alignItems: 'flex-end',
