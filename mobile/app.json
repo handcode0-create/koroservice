@@ -5,8 +5,8 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "mobile",
-    "userInterfaceStyle": "automatic",
+    "scheme": "koro-services",
+    "userInterfaceStyle": "light",
     "ios": {
       "icon": "./assets/expo.icon"
     },
@@ -21,6 +21,7 @@
     },
     "web": {
       "output": "static",
+      "backgroundColor": "#F8FAFC",
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
