@@ -1,26 +1,83 @@
-import { NativeTabs } from 'expo-router/unstable-native-tabs';
+import { Tabs } from 'expo-router';
+import { SymbolView } from 'expo-symbols';
 
-import { useTheme } from '@/hooks/use-theme';
+import { Colors } from '@/constants/theme';
 
 export default function AppTabs() {
-  const theme = useTheme();
+  const theme = Colors.light;
 
   return (
-    <NativeTabs
-      backgroundColor={theme.surface}
-      indicatorColor={theme.backgroundElement}
-      labelStyle={{ selected: { color: theme.primary } }}>
-      <NativeTabs.Trigger name="index">
-        <NativeTabs.Trigger.Label>Accueil</NativeTabs.Trigger.Label>
-      </NativeTabs.Trigger>
-
-      <NativeTabs.Trigger name="demandes">
-        <NativeTabs.Trigger.Label>Demandes</NativeTabs.Trigger.Label>
-      </NativeTabs.Trigger>
-
-      <NativeTabs.Trigger name="profil">
-        <NativeTabs.Trigger.Label>Profil</NativeTabs.Trigger.Label>
-      </NativeTabs.Trigger>
-    </NativeTabs>
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        sceneStyle: {
+          backgroundColor: theme.background,
+        },
+        tabBarActiveTintColor: theme.primary,
+        tabBarInactiveTintColor: theme.textSecondary,
+        tabBarStyle: {
+          backgroundColor: theme.surface,
+          borderTopColor: theme.border,
+          height: 70,
+          paddingTop: 6,
+          paddingBottom: 8,
+        },
+        tabBarLabelStyle: {
+          fontSize: 11,
+          fontWeight: '800',
+        },
+      }}>
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Accueil',
+          tabBarIcon: ({ color }) => (
+            <SymbolView
+              size={20}
+              tintColor={color}
+              name={{
+                ios: 'house.fill',
+                android: 'home',
+                web: 'home',
+              }}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="demandes"
+        options={{
+          title: 'Demandes',
+          tabBarIcon: ({ color }) => (
+            <SymbolView
+              size={20}
+              tintColor={color}
+              name={{
+                ios: 'doc.text.fill',
+                android: 'description',
+                web: 'description',
+              }}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profil"
+        options={{
+          title: 'Profil',
+          tabBarIcon: ({ color }) => (
+            <SymbolView
+              size={20}
+              tintColor={color}
+              name={{
+                ios: 'person.fill',
+                android: 'person',
+                web: 'person',
+              }}
+            />
+          ),
+        }}
+      />
+    </Tabs>
   );
 }
