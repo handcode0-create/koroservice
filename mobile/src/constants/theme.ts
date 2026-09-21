@@ -41,21 +41,21 @@ export type ThemeColor = keyof typeof Colors.light & keyof typeof Colors.dark;
 
 export const Fonts = Platform.select({
   ios: {
-    sans: 'system-ui',
+    sans: 'Poppins_400Regular',
     serif: 'ui-serif',
-    rounded: 'ui-rounded',
+    rounded: 'Poppins_500Medium',
     mono: 'ui-monospace',
   },
   default: {
-    sans: 'normal',
+    sans: 'Poppins_400Regular',
     serif: 'serif',
-    rounded: 'normal',
+    rounded: 'Poppins_500Medium',
     mono: 'monospace',
   },
   web: {
-    sans: 'var(--font-display)',
+    sans: 'Poppins_400Regular',
     serif: 'var(--font-serif)',
-    rounded: 'var(--font-rounded)',
+    rounded: 'Poppins_500Medium',
     mono: 'var(--font-mono)',
   },
 });

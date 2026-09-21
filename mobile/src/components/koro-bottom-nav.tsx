@@ -1,6 +1,6 @@
 import { usePathname, useRouter } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { SymbolView } from 'expo-symbols';
+import { Ionicons } from '@expo/vector-icons';
 
 import { Colors } from '@/constants/theme';
 
@@ -59,14 +59,16 @@ function NavButton({
 
   return (
     <Pressable onPress={onPress} style={styles.navButton}>
-      <SymbolView
+      <Ionicons
+        name={
+          item.icon === 'house.fill'
+            ? 'home-outline'
+            : item.icon === 'doc.text.fill'
+              ? 'document-text-outline'
+              : 'person-outline'
+        }
         size={20}
-        tintColor={color}
-        name={{
-          ios: item.icon as any,
-          android: item.icon as any,
-          web: item.icon as any,
-        }}
+        color={color}
       />
       <Text style={[styles.navLabel, { color }]}>{item.label}</Text>
     </Pressable>
@@ -97,6 +99,7 @@ const styles = StyleSheet.create({
   },
   navLabel: {
     fontSize: 9,
+    fontFamily: 'Poppins_800ExtraBold',
     fontWeight: '800',
   },
   plusButton: {
@@ -119,6 +122,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 30,
     lineHeight: 32,
+    fontFamily: 'Poppins_500Medium',
     fontWeight: '500',
     marginTop: -2,
   },

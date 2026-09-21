@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import { ScrollView, StyleSheet, Text, TextInput, Pressable, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { SymbolView } from 'expo-symbols';
+import { Ionicons } from '@expo/vector-icons';
 
 import { KoroBottomNav } from '@/components/koro-bottom-nav';
 import { Colors, Radius, Spacing } from '@/constants/theme';
@@ -9,12 +9,12 @@ import { Colors, Radius, Spacing } from '@/constants/theme';
 const theme = Colors.light;
 
 const SERVICES = [
-  { icon: 'drop.fill', title: 'Plomberie', color: '#1976FF' },
-  { icon: 'bolt.fill', title: 'Électricité', color: '#F59E0B' },
-  { icon: 'snowflake', title: 'Climatisation', color: '#2B7BFF' },
-  { icon: 'paintbrush.fill', title: 'Peinture', color: '#F97316' },
-  { icon: 'sparkles', title: 'Nettoyage', color: '#6B46C1' },
-  { icon: 'leaf.fill', title: 'Jardinage', color: '#1FAF6A' },
+  { icon: 'water-outline', title: 'Plomberie', color: '#1976FF' },
+  { icon: 'flash-outline', title: 'Électricité', color: '#F59E0B' },
+  { icon: 'snow-outline', title: 'Climatisation', color: '#2B7BFF' },
+  { icon: 'color-palette-outline', title: 'Peinture', color: '#F97316' },
+  { icon: 'sparkles-outline', title: 'Nettoyage', color: '#6B46C1' },
+  { icon: 'leaf-outline', title: 'Jardinage', color: '#1FAF6A' },
 ];
 
 function ProfessionalVisual() {
@@ -55,11 +55,7 @@ export default function HomeScreen() {
             </View>
 
             <Pressable style={styles.bell}>
-              <SymbolView
-                size={21}
-                tintColor={theme.text}
-                name={{ ios: 'bell.fill', android: 'notifications', web: 'notifications' } as any}
-              />
+              <Ionicons name="notifications-outline" size={21} color={theme.text} />
               <View style={styles.notificationDot} />
             </Pressable>
           </View>
@@ -67,11 +63,7 @@ export default function HomeScreen() {
           <Text style={styles.question}>De quoi avez-vous besoin aujourd’hui ?</Text>
 
           <View style={styles.searchBox}>
-            <SymbolView
-              size={19}
-              tintColor={theme.textSecondary}
-              name={{ ios: 'magnifyingglass', android: 'search', web: 'search' } as any}
-            />
+            <Ionicons name="search-outline" size={19} color={theme.textSecondary} />
             <TextInput
               placeholder="Rechercher un service..."
               placeholderTextColor={theme.muted}
@@ -113,15 +105,7 @@ export default function HomeScreen() {
             {SERVICES.map((service) => (
               <Pressable key={service.title} onPress={() => router.push('/demandes')} style={styles.serviceCard}>
                 <View style={[styles.serviceIcon, { backgroundColor: service.color + '15' }]}>
-                  <SymbolView
-                    size={22}
-                    tintColor={service.color}
-                    name={{
-                      ios: service.icon,
-                      android: service.icon,
-                      web: service.icon,
-                    } as any}
-                  />
+                  <Ionicons name={service.icon as any} size={22} color={service.color} />
                 </View>
                 <Text style={styles.serviceTitle}>{service.title}</Text>
               </Pressable>
@@ -139,11 +123,7 @@ export default function HomeScreen() {
 
           <Pressable onPress={() => router.push('/demandes')} style={styles.requestCard}>
             <View style={[styles.requestIcon, { backgroundColor: '#EAF2FF' }]}>
-              <SymbolView
-                size={22}
-                tintColor="#2B7BFF"
-                name={{ ios: 'snowflake', android: 'ac_unit', web: 'ac_unit' } as any}
-              />
+              <Ionicons name="snow-outline" size={22} color="#2B7BFF" />
             </View>
             <View style={styles.requestCopy}>
               <Text style={styles.requestTitle}>Climatisation</Text>
@@ -201,16 +181,19 @@ const styles = StyleSheet.create({
   avatarText: {
     color: '#0F4AB8',
     fontSize: 18,
+    fontFamily: 'Poppins_900Black',
     fontWeight: '900',
   },
   greeting: {
     color: '#66758A',
     fontSize: 11,
+    fontFamily: 'Poppins_600SemiBold',
     fontWeight: '600',
   },
   name: {
     color: '#0B1220',
     fontSize: 16,
+    fontFamily: 'Poppins_900Black',
     fontWeight: '900',
     marginTop: 1,
   },
@@ -237,6 +220,7 @@ const styles = StyleSheet.create({
     color: '#0B1220',
     fontSize: 19,
     lineHeight: 25,
+    fontFamily: 'Poppins_900Black',
     fontWeight: '900',
     marginTop: 2,
   },
@@ -255,6 +239,7 @@ const styles = StyleSheet.create({
     flex: 1,
     color: '#0B1220',
     fontSize: 13,
+    fontFamily: 'Poppins_600SemiBold',
     fontWeight: '600',
     paddingVertical: 0,
   },
@@ -280,17 +265,20 @@ const styles = StyleSheet.create({
   heroBadgeDot: {
     color: '#4DA3FF',
     fontSize: 12,
+    fontFamily: 'Poppins_900Black',
     fontWeight: '900',
   },
   heroBadgeText: {
     color: '#FFFFFF',
     fontSize: 11,
+    fontFamily: 'Poppins_800ExtraBold',
     fontWeight: '800',
   },
   heroTitle: {
     color: '#FFFFFF',
     fontSize: 20,
     lineHeight: 23,
+    fontFamily: 'Poppins_900Black',
     fontWeight: '900',
     maxWidth: 190,
   },
@@ -307,11 +295,13 @@ const styles = StyleSheet.create({
   heroButtonText: {
     color: '#18243A',
     fontSize: 10,
+    fontFamily: 'Poppins_900Black',
     fontWeight: '900',
   },
   heroButtonArrow: {
     color: '#18243A',
     fontSize: 14,
+    fontFamily: 'Poppins_900Black',
     fontWeight: '900',
   },
   visual: {
@@ -410,17 +400,20 @@ const styles = StyleSheet.create({
   sectionTitle: {
     color: '#0B1220',
     fontSize: 16,
+    fontFamily: 'Poppins_900Black',
     fontWeight: '900',
   },
   sectionSubtitle: {
     color: '#758396',
     fontSize: 10,
+    fontFamily: 'Poppins_600SemiBold',
     fontWeight: '600',
     marginTop: 2,
   },
   seeAll: {
     color: '#1D68DD',
     fontSize: 11,
+    fontFamily: 'Poppins_900Black',
     fontWeight: '900',
   },
   servicesGrid: {
@@ -451,6 +444,7 @@ const styles = StyleSheet.create({
   serviceTitle: {
     color: '#0B1220',
     fontSize: 10,
+    fontFamily: 'Poppins_900Black',
     fontWeight: '900',
   },
   requestCard: {
@@ -478,11 +472,13 @@ const styles = StyleSheet.create({
   requestTitle: {
     color: '#0B1220',
     fontSize: 12,
+    fontFamily: 'Poppins_900Black',
     fontWeight: '900',
   },
   requestMeta: {
     color: '#79889A',
     fontSize: 9,
+    fontFamily: 'Poppins_600SemiBold',
     fontWeight: '600',
   },
   requestRight: {
@@ -498,11 +494,13 @@ const styles = StyleSheet.create({
   statusText: {
     color: '#A56A00',
     fontSize: 8,
+    fontFamily: 'Poppins_900Black',
     fontWeight: '900',
   },
   requestDate: {
     color: '#8C98A8',
     fontSize: 8,
+    fontFamily: 'Poppins_600SemiBold',
     fontWeight: '600',
   },
 });

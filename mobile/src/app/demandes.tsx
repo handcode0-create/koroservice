@@ -87,18 +87,21 @@ const styles = StyleSheet.create({
   kicker: {
     color: theme.primary,
     fontSize: 10,
+    fontFamily: 'Poppins_900Black',
     fontWeight: '900',
     letterSpacing: 1.1,
   },
   title: {
     color: theme.text,
     fontSize: 28,
+    fontFamily: 'Poppins_900Black',
     fontWeight: '900',
     marginTop: 4,
   },
   subtitle: {
     color: theme.textSecondary,
     fontSize: 12,
+    fontFamily: 'Poppins_600SemiBold',
     fontWeight: '600',
     marginTop: 3,
   },
@@ -113,6 +116,7 @@ const styles = StyleSheet.create({
   addTopText: {
     color: '#FFFFFF',
     fontSize: 28,
+    fontFamily: 'Poppins_500Medium',
     fontWeight: '500',
   },
   card: {
@@ -137,28 +141,33 @@ const styles = StyleSheet.create({
   iconText: {
     color: theme.primary,
     fontSize: 24,
+    fontFamily: 'Poppins_800ExtraBold',
     fontWeight: '800',
   },
   cardCopy: { flex: 1, gap: 3 },
   cardTitle: {
     color: theme.text,
     fontSize: 14,
+    fontFamily: 'Poppins_900Black',
     fontWeight: '900',
   },
   cardText: {
     color: theme.textSecondary,
     fontSize: 11,
     lineHeight: 17,
+    fontFamily: 'Poppins_600SemiBold',
     fontWeight: '600',
   },
   sectionTitle: {
     color: theme.text,
     fontSize: 16,
+    fontFamily: 'Poppins_900Black',
     fontWeight: '900',
   },
   sectionSubtitle: {
     color: theme.textSecondary,
     fontSize: 10,
+    fontFamily: 'Poppins_600SemiBold',
     fontWeight: '600',
     marginTop: 2,
   },
@@ -184,18 +193,21 @@ const styles = StyleSheet.create({
   stepNumberText: {
     color: theme.primary,
     fontSize: 12,
+    fontFamily: 'Poppins_900Black',
     fontWeight: '900',
   },
   stepCopy: { flex: 1, gap: 2 },
   stepTitle: {
     color: theme.text,
     fontSize: 12,
+    fontFamily: 'Poppins_900Black',
     fontWeight: '900',
   },
   stepText: {
     color: theme.textSecondary,
     fontSize: 10,
     lineHeight: 15,
+    fontFamily: 'Poppins_600SemiBold',
     fontWeight: '600',
   },
 });
