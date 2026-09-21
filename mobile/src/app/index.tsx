@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 import { ScrollView, StyleSheet, Text, TextInput, Pressable, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
 
 import { KoroBottomNav } from '@/components/koro-bottom-nav';
@@ -16,23 +17,6 @@ const SERVICES = [
   { icon: 'sparkles-outline', title: 'Nettoyage', color: '#6B46C1' },
   { icon: 'leaf-outline', title: 'Jardinage', color: '#1FAF6A' },
 ];
-
-function ProfessionalVisual() {
-  return (
-    <View style={styles.visual}>
-      <View style={styles.orangeBlob} />
-      <View style={styles.plantOne} />
-      <View style={styles.plantTwo} />
-      <View style={styles.personBody}>
-        <View style={styles.personHead} />
-        <View style={styles.cap} />
-        <View style={styles.personShirt} />
-        <View style={styles.personArmOne} />
-        <View style={styles.personArmTwo} />
-      </View>
-    </View>
-  );
-}
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -88,7 +72,12 @@ export default function HomeScreen() {
               </Pressable>
             </View>
 
-            <ProfessionalVisual />
+            <Image
+              source={require('@/assets/images/koro-banner-pros-verifies.png')}
+              contentFit="cover"
+              style={styles.bannerImage}
+              accessibilityLabel="Professionnel Kôrô Services"
+            />
           </View>
 
           <View style={styles.sectionHeader}>
@@ -304,93 +293,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins_900Black',
     fontWeight: '900',
   },
-  visual: {
+  bannerImage: {
     width: 150,
     height: '100%',
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  orangeBlob: {
     position: 'absolute',
-    right: -18,
-    top: 18,
-    width: 95,
-    height: 95,
-    borderRadius: 48,
-    backgroundColor: '#FFAA17',
-  },
-  plantOne: {
-    position: 'absolute',
-    right: 12,
-    bottom: 18,
-    width: 35,
-    height: 62,
-    borderRadius: 18,
-    backgroundColor: '#2E9A5B',
-    transform: [{ rotate: '28deg' }],
-  },
-  plantTwo: {
-    position: 'absolute',
-    right: 36,
-    bottom: 13,
-    width: 24,
-    height: 54,
-    borderRadius: 16,
-    backgroundColor: '#74C56A',
-    transform: [{ rotate: '-16deg' }],
-  },
-  personBody: {
-    position: 'absolute',
-    right: 26,
-    bottom: -4,
-    width: 82,
-    height: 126,
-    alignItems: 'center',
-  },
-  personHead: {
-    width: 46,
-    height: 46,
-    borderRadius: 23,
-    backgroundColor: '#7B4A2C',
-    marginTop: 6,
-    zIndex: 4,
-  },
-  cap: {
-    width: 55,
-    height: 16,
-    borderRadius: 8,
-    backgroundColor: '#0C3B7A',
-    position: 'absolute',
-    top: 2,
-    zIndex: 5,
-  },
-  personShirt: {
-    width: 72,
-    height: 74,
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
-    backgroundColor: '#0D5BB5',
-    marginTop: -2,
-  },
-  personArmOne: {
-    width: 54,
-    height: 14,
-    borderRadius: 8,
-    backgroundColor: '#7B4A2C',
-    position: 'absolute',
-    top: 64,
-    right: -4,
-    transform: [{ rotate: '28deg' }],
-  },
-  personArmTwo: {
-    width: 50,
-    height: 14,
-    borderRadius: 8,
-    backgroundColor: '#8A5330',
-    position: 'absolute',
-    top: 76,
-    left: -5,
-    transform: [{ rotate: '-28deg' }],
+    right: 0,
+    top: 0,
   },
   sectionHeader: {
     flexDirection: 'row',
