@@ -2,7 +2,7 @@ import { usePathname, useRouter } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-import { KoroColors, KoroIconSize, KoroLayout, KoroRadius, KoroShadow, KoroTypography } from '@/design-system/tokens';
+import { KoroColors, KoroIconSize, KoroShadow, KoroTypography } from '@/design-system/tokens';
 
 type NavItem = {
   route: '/' | '/demandes' | '/profil';
@@ -33,7 +33,7 @@ export function KoroBottomNav() {
       <Pressable
         onPress={() => router.push('/demandes')}
         style={({ pressed }) => [styles.plusButton, pressed && styles.pressed]}>
-        <Text style={styles.plusText}>+</Text>
+        <Ionicons name="add" size={30} color="#FFFFFF" />
       </Pressable>
 
       <NavButton item={{ route: '/', label: 'Messages', icon: 'message.fill' }} active={false} onPress={() => {}} />
@@ -121,14 +121,6 @@ const styles = StyleSheet.create({
     shadowRadius: KoroShadow.floating.shadowRadius,
     shadowOffset: KoroShadow.floating.shadowOffset,
     elevation: KoroShadow.floating.elevation,
-  },
-  plusText: {
-    color: '#FFFFFF',
-    fontSize: 30,
-    lineHeight: 32,
-    fontFamily: 'Poppins_500Medium',
-    fontWeight: '500',
-    marginTop: -2,
   },
   pressed: {
     opacity: 0.8,
