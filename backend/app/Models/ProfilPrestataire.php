@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Foundation\Support\Str;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProfilPrestataire extends \Illuminate\Database\Eloquent\Model
@@ -51,7 +50,7 @@ class ProfilPrestataire extends \Illuminate\Database\Eloquent\Model
 
     public function utilisateur(): BelongsTo
     {
-        return $this->belongsTo(Utilisateur::class);
+        return $this->belongsTo(Utilisateur::class, 'utilisateur_id');
     }
 
     public function categories(): BelongsToMany
