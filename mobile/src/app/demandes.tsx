@@ -1,33 +1,33 @@
 import { useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { MaxContentWidth, Radius, Spacing } from '@/constants/theme';
-import { useTheme } from '@/hooks/use-theme';
-import { useAuthStore } from '@/stores/auth';
+import { KoroHeader } from '@/components/koro-header';
+import { Colors, MaxContentWidth, Radius, Spacing } from '@/constants/theme';
+
+const theme = Colors.dark;
 
 export default function DemandesScreen() {
   const router = useRouter();
-  const insets = useSafeAreaInsets();
-  const theme = useTheme();
-  const utilisateur = useAuthStore((state) => state.utilisateur);
 
   return (
-    <SafeAreaView style={[styles.safeArea, { backgroundColor: theme.background }]}>
+    <SafeAreaView style={styles.safeArea}>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: insets.bottom + 110 }}>
-        <View style={[styles.container, { maxWidth: MaxContentWidth }]}>
-          <Text style={[styles.kicker, { color: theme.primary }]}>ESPACE CLIENT</Text>
-          <Text style={[styles.title, { color: theme.text }]}>Mes demandes</Text>
-          <Text style={[styles.subtitle, { color: theme.textSecondary }]}>
+        contentContainerStyle={styles.scrollContent}>
+        <View style={[styles.shell, { maxWidth: MaxContentWidth }]}>
+          <KoroHeader />
+
+          <Text style={styles.kicker}>ESPACE CLIENT</Text>
+          <Text style={styles.title}>Mes demandes</Text>
+          <Text style={styles.subtitle}>
             Retrouvez vos besoins et leur progression.
           </Text>
 
           <Pressable
             onPress={() => router.push('/profil')}
-            style={[styles.primaryCard, { backgroundColor: theme.primaryDark }]}>
-            <View style={[styles.primaryMark, { backgroundColor: 'rgba(34,211,238,0.16)' }]}>
+            style={styles.primaryCard}>
+            <View style={styles.primaryMark}>
               <Text style={styles.primaryMarkText}>+</Text>
             </View>
             <View style={styles.primaryCopy}>
@@ -39,42 +39,15 @@ export default function DemandesScreen() {
             <Text style={styles.primaryArrow}>→</Text>
           </Pressable>
 
-          <View style={[styles.emptyCard, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-            <View style={[styles.emptyIcon, { backgroundColor: theme.backgroundElement }]}>
-              <Text style={[styles.emptyIconText, { color: theme.primary }]}>▣</Text>
+          <View style={styles.emptyCard}>
+            <View style={styles.emptyIcon}>
+              <Text style={styles.emptyIconText}>▣</Text>
             </View>
             <View style={styles.emptyCopy}>
-              <Text style={[styles.emptyTitle, { color: theme.text }]}>
-                {utilisateur ? 'Aucune demande pour le moment' : 'Connectez-vous pour commencer'}
+              <Text style={styles.emptyTitle}>Aucune demande pour le moment</Text>
+              <Text style={styles.emptyText}>
+                Vos demandes et leurs statuts apparaîtront ici.
               </Text>
-              <Text style={[styles.emptyText, { color: theme.textSecondary }]}>
-                {utilisateur
-                  ? 'Vos demandes et leurs statuts apparaîtront ici.'
-                  : 'Votre compte permet de retrouver tout votre historique.'}
-              </Text>
-            </View>
-          </View>
-
-          <View style={styles.section}>
-            <Text style={[styles.sectionTitle, { color: theme.text }]}>
-              Le parcours Kôrô Services
-            </Text>
-            <View style={styles.steps}>
-              {[
-                ['1', 'Décrivez', 'Votre besoin'],
-                ['2', 'Localisez', 'Votre quartier'],
-                ['3', 'Comparez', 'Les professionnels'],
-              ].map(([number, title, text]) => (
-                <View
-                  key={number}
-                  style={[styles.stepCard, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-                  <View style={[styles.stepNumber, { backgroundColor: theme.backgroundElement }]}>
-                    <Text style={[styles.stepNumberText, { color: theme.primary }]}>{number}</Text>
-                  </View>
-                  <Text style={[styles.stepTitle, { color: theme.text }]}>{title}</Text>
-                  <Text style={[styles.stepText, { color: theme.textSecondary }]}>{text}</Text>
-                </View>
-              ))}
             </View>
           </View>
         </View>
@@ -84,33 +57,38 @@ export default function DemandesScreen() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: { flex: 1 },
-  container: {
+  safeArea: { flex: 1, backgroundColor: '#08111F' },
+  scrollContent: { alignItems: 'center', paddingBottom: 32 },
+  shell: {
     width: '100%',
-    alignSelf: 'center',
     paddingHorizontal: Spacing.four,
-    paddingTop: Spacing.four,
-    gap: Spacing.four,
+    gap: Spacing.three,
   },
   kicker: {
+    color: '#5A9BFF',
     fontSize: 11,
     fontWeight: '900',
     letterSpacing: 1.2,
   },
   title: {
+    color: '#F8FAFC',
     fontSize: 29,
     lineHeight: 35,
     fontWeight: '900',
-    marginTop: -10,
+    marginTop: -8,
   },
   subtitle: {
+    color: '#71819A',
     fontSize: 13,
     lineHeight: 20,
-    fontWeight: '500',
-    marginTop: -12,
+    fontWeight: '600',
+    marginTop: -10,
   },
   primaryCard: {
     borderRadius: Radius.lg,
+    backgroundColor: '#0C182A',
+    borderWidth: 1,
+    borderColor: '#1A2A41',
     padding: Spacing.three,
     flexDirection: 'row',
     alignItems: 'center',
@@ -120,35 +98,38 @@ const styles = StyleSheet.create({
     width: 42,
     height: 42,
     borderRadius: 13,
+    backgroundColor: 'rgba(34,211,238,0.12)',
     alignItems: 'center',
     justifyContent: 'center',
   },
   primaryMarkText: {
     color: '#22D3EE',
-    fontSize: 25,
+    fontSize: 24,
     fontWeight: '900',
   },
   primaryCopy: { flex: 1, gap: 3 },
   primaryTitle: {
-    color: '#FFFFFF',
+    color: '#F8FAFC',
     fontSize: 14,
     lineHeight: 19,
     fontWeight: '900',
   },
   primaryText: {
-    color: '#CBD5E1',
-    fontSize: 12,
-    lineHeight: 18,
-    fontWeight: '500',
+    color: '#71819A',
+    fontSize: 11,
+    lineHeight: 17,
+    fontWeight: '600',
   },
   primaryArrow: {
     color: '#22D3EE',
-    fontSize: 22,
+    fontSize: 21,
     fontWeight: '900',
   },
   emptyCard: {
-    borderWidth: 1,
     borderRadius: Radius.md,
+    backgroundColor: '#111C30',
+    borderWidth: 1,
+    borderColor: '#23324A',
     padding: Spacing.three,
     flexDirection: 'row',
     alignItems: 'center',
@@ -158,60 +139,26 @@ const styles = StyleSheet.create({
     width: 46,
     height: 46,
     borderRadius: 14,
+    backgroundColor: '#172B4B',
     alignItems: 'center',
     justifyContent: 'center',
   },
   emptyIconText: {
+    color: '#5A9BFF',
     fontSize: 20,
     fontWeight: '900',
   },
   emptyCopy: { flex: 1, gap: 3 },
   emptyTitle: {
+    color: '#F8FAFC',
     fontSize: 14,
     lineHeight: 19,
     fontWeight: '900',
   },
   emptyText: {
-    fontSize: 12,
-    lineHeight: 18,
-    fontWeight: '500',
-  },
-  section: { gap: Spacing.two },
-  sectionTitle: {
-    fontSize: 17,
-    lineHeight: 22,
-    fontWeight: '900',
-  },
-  steps: {
-    flexDirection: 'row',
-    gap: Spacing.two,
-  },
-  stepCard: {
-    flex: 1,
-    minHeight: 124,
-    borderWidth: 1,
-    borderRadius: Radius.md,
-    padding: Spacing.two,
-  },
-  stepNumber: {
-    width: 28,
-    height: 28,
-    borderRadius: 9,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 8,
-  },
-  stepNumberText: {
-    fontSize: 12,
-    fontWeight: '900',
-  },
-  stepTitle: {
-    fontSize: 12,
-    fontWeight: '900',
-  },
-  stepText: {
-    fontSize: 10,
-    lineHeight: 15,
-    marginTop: 4,
+    color: '#71819A',
+    fontSize: 11,
+    lineHeight: 17,
+    fontWeight: '600',
   },
 });
