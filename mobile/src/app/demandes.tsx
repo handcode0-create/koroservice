@@ -2,10 +2,10 @@ import { useRouter } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { KoroHeader } from '@/components/koro-header';
-import { Colors, MaxContentWidth, Radius, Spacing } from '@/constants/theme';
+import { KoroBottomNav } from '@/components/koro-bottom-nav';
+import { Colors, Radius, Spacing } from '@/constants/theme';
 
-const theme = Colors.dark;
+const theme = Colors.light;
 
 export default function DemandesScreen() {
   const router = useRouter();
@@ -15,150 +15,187 @@ export default function DemandesScreen() {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}>
-        <View style={[styles.shell, { maxWidth: MaxContentWidth }]}>
-          <KoroHeader />
-
-          <Text style={styles.kicker}>ESPACE CLIENT</Text>
-          <Text style={styles.title}>Mes demandes</Text>
-          <Text style={styles.subtitle}>
-            Retrouvez vos besoins et leur progression.
-          </Text>
-
-          <Pressable
-            onPress={() => router.push('/profil')}
-            style={styles.primaryCard}>
-            <View style={styles.primaryMark}>
-              <Text style={styles.primaryMarkText}>+</Text>
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <View>
+              <Text style={styles.kicker}>DEMANDES</Text>
+              <Text style={styles.title}>Vos demandes</Text>
+              <Text style={styles.subtitle}>Suivez vos interventions et leurs statuts.</Text>
             </View>
-            <View style={styles.primaryCopy}>
-              <Text style={styles.primaryTitle}>Besoin d’un professionnel ?</Text>
-              <Text style={styles.primaryText}>
-                Connectez-vous pour publier votre demande et suivre vos interventions.
-              </Text>
-            </View>
-            <Text style={styles.primaryArrow}>→</Text>
-          </Pressable>
+            <Pressable onPress={() => router.push('/demandes')} style={styles.addTop}>
+              <Text style={styles.addTopText}>+</Text>
+            </Pressable>
+          </View>
 
-          <View style={styles.emptyCard}>
-            <View style={styles.emptyIcon}>
-              <Text style={styles.emptyIconText}>▣</Text>
+          <View style={styles.card}>
+            <View style={styles.iconBox}>
+              <Text style={styles.iconText}>+</Text>
             </View>
-            <View style={styles.emptyCopy}>
-              <Text style={styles.emptyTitle}>Aucune demande pour le moment</Text>
-              <Text style={styles.emptyText}>
-                Vos demandes et leurs statuts apparaîtront ici.
+            <View style={styles.cardCopy}>
+              <Text style={styles.cardTitle}>Aucune demande récente</Text>
+              <Text style={styles.cardText}>
+                Décrivez votre besoin pour trouver un professionnel.
               </Text>
             </View>
           </View>
+
+          <View>
+            <Text style={styles.sectionTitle}>Comment ça marche ?</Text>
+            <Text style={styles.sectionSubtitle}>Un parcours simple en quelques étapes.</Text>
+          </View>
+
+          <View style={styles.stepList}>
+            {[
+              ['1', 'Décrivez votre besoin', 'Choisissez un service et expliquez le problème.'],
+              ['2', 'Indiquez votre zone', 'Commune, quartier et repère.'],
+              ['3', 'Recevez des réponses', 'Comparez les professionnels disponibles.'],
+            ].map(([n, title, text]) => (
+              <View key={n} style={styles.step}>
+                <View style={styles.stepNumber}>
+                  <Text style={styles.stepNumberText}>{n}</Text>
+                </View>
+                <View style={styles.stepCopy}>
+                  <Text style={styles.stepTitle}>{title}</Text>
+                  <Text style={styles.stepText}>{text}</Text>
+                </View>
+              </View>
+            ))}
+          </View>
         </View>
       </ScrollView>
+      <KoroBottomNav />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: { flex: 1, backgroundColor: '#08111F' },
-  scrollContent: { alignItems: 'center', paddingBottom: 32 },
-  shell: {
+  safeArea: { flex: 1, backgroundColor: '#F7F8FA' },
+  scrollContent: { paddingBottom: 104 },
+  container: {
     width: '100%',
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.three,
+    maxWidth: 720,
+    alignSelf: 'center',
+    paddingHorizontal: 16,
+    paddingTop: 18,
+    gap: 16,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
   },
   kicker: {
-    color: '#5A9BFF',
-    fontSize: 11,
+    color: theme.primary,
+    fontSize: 10,
     fontWeight: '900',
-    letterSpacing: 1.2,
+    letterSpacing: 1.1,
   },
   title: {
-    color: '#F8FAFC',
-    fontSize: 29,
-    lineHeight: 35,
+    color: theme.text,
+    fontSize: 28,
     fontWeight: '900',
-    marginTop: -8,
+    marginTop: 4,
   },
   subtitle: {
-    color: '#71819A',
-    fontSize: 13,
-    lineHeight: 20,
+    color: theme.textSecondary,
+    fontSize: 12,
     fontWeight: '600',
-    marginTop: -10,
+    marginTop: 3,
   },
-  primaryCard: {
-    borderRadius: Radius.lg,
-    backgroundColor: '#0C182A',
-    borderWidth: 1,
-    borderColor: '#1A2A41',
-    padding: Spacing.three,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: Spacing.two,
-  },
-  primaryMark: {
-    width: 42,
-    height: 42,
-    borderRadius: 13,
-    backgroundColor: 'rgba(34,211,238,0.12)',
+  addTop: {
+    width: 44,
+    height: 44,
+    borderRadius: 14,
+    backgroundColor: theme.primary,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  primaryMarkText: {
-    color: '#22D3EE',
-    fontSize: 24,
-    fontWeight: '900',
+  addTopText: {
+    color: '#FFFFFF',
+    fontSize: 28,
+    fontWeight: '500',
   },
-  primaryCopy: { flex: 1, gap: 3 },
-  primaryTitle: {
-    color: '#F8FAFC',
-    fontSize: 14,
-    lineHeight: 19,
-    fontWeight: '900',
-  },
-  primaryText: {
-    color: '#71819A',
-    fontSize: 11,
-    lineHeight: 17,
-    fontWeight: '600',
-  },
-  primaryArrow: {
-    color: '#22D3EE',
-    fontSize: 21,
-    fontWeight: '900',
-  },
-  emptyCard: {
-    borderRadius: Radius.md,
-    backgroundColor: '#111C30',
+  card: {
+    minHeight: 96,
     borderWidth: 1,
-    borderColor: '#23324A',
-    padding: Spacing.three,
+    borderColor: theme.border,
+    backgroundColor: '#FFFFFF',
+    borderRadius: Radius.lg,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: Spacing.two,
+    gap: 12,
   },
-  emptyIcon: {
+  iconBox: {
     width: 46,
     height: 46,
     borderRadius: 14,
-    backgroundColor: '#172B4B',
+    backgroundColor: '#EAF2FF',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  emptyIconText: {
-    color: '#5A9BFF',
-    fontSize: 20,
-    fontWeight: '900',
+  iconText: {
+    color: theme.primary,
+    fontSize: 24,
+    fontWeight: '800',
   },
-  emptyCopy: { flex: 1, gap: 3 },
-  emptyTitle: {
-    color: '#F8FAFC',
+  cardCopy: { flex: 1, gap: 3 },
+  cardTitle: {
+    color: theme.text,
     fontSize: 14,
-    lineHeight: 19,
     fontWeight: '900',
   },
-  emptyText: {
-    color: '#71819A',
+  cardText: {
+    color: theme.textSecondary,
     fontSize: 11,
     lineHeight: 17,
+    fontWeight: '600',
+  },
+  sectionTitle: {
+    color: theme.text,
+    fontSize: 16,
+    fontWeight: '900',
+  },
+  sectionSubtitle: {
+    color: theme.textSecondary,
+    fontSize: 10,
+    fontWeight: '600',
+    marginTop: 2,
+  },
+  stepList: { gap: 10 },
+  step: {
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: theme.border,
+    borderRadius: Radius.md,
+    padding: 13,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 11,
+  },
+  stepNumber: {
+    width: 34,
+    height: 34,
+    borderRadius: 11,
+    backgroundColor: '#EAF2FF',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  stepNumberText: {
+    color: theme.primary,
+    fontSize: 12,
+    fontWeight: '900',
+  },
+  stepCopy: { flex: 1, gap: 2 },
+  stepTitle: {
+    color: theme.text,
+    fontSize: 12,
+    fontWeight: '900',
+  },
+  stepText: {
+    color: theme.textSecondary,
+    fontSize: 10,
+    lineHeight: 15,
     fontWeight: '600',
   },
 });
