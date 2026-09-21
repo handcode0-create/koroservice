@@ -3,7 +3,10 @@
 namespace App\Models;
 
 use Database\Factories\UtilisateurFactory;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,7 +15,7 @@ use Laravel\Sanctum\HasApiTokens;
 class Utilisateur extends Authenticatable
 {
     /** @use HasFactory<UtilisateurFactory> */
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, HasUlids, Notifiable, SoftDeletes;
 
     protected $table = 'utilisateurs';
 
@@ -41,6 +44,21 @@ class Utilisateur extends Authenticatable
         'dernier_acces_at' => 'datetime',
         'mot_de_passe' => 'hashed',
     ];
+
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Role::class,
+            'utilisateurs_roles',
+            'utilisateur_id',
+            'role_id'
+        );
+    }
+
+    public function profilPrestataire(): HasOne
+    {
+        return $this->hasOne(ProfilPrestataire::class);
+    }
 
     public function getAuthPassword(): string
     {
