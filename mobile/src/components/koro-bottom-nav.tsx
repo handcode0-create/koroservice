@@ -2,7 +2,7 @@ import { usePathname, useRouter } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-import { Colors } from '@/constants/theme';
+import { KoroColors, KoroIconSize, KoroShadow, KoroTypography } from '@/design-system/tokens';
 
 type NavItem = {
   route: '/' | '/demandes' | '/profil';
@@ -19,10 +19,10 @@ const items: NavItem[] = [
 export function KoroBottomNav() {
   const router = useRouter();
   const pathname = usePathname();
-  const theme = Colors.light;
+  const theme = KoroColors;
 
   return (
-    <View style={[styles.bar, { backgroundColor: theme.surface, borderTopColor: theme.border }]}>
+    <View style={[styles.bar, { backgroundColor: KoroColors.surface, borderTopColor: KoroColors.border }]}>
       <NavButton item={items[0]} active={pathname === '/'} onPress={() => router.replace('/')} />
       <NavButton
         item={items[1]}
@@ -33,7 +33,7 @@ export function KoroBottomNav() {
       <Pressable
         onPress={() => router.push('/demandes')}
         style={({ pressed }) => [styles.plusButton, pressed && styles.pressed]}>
-        <Text style={styles.plusText}>+</Text>
+        <Ionicons name="add" size={30} color="#FFFFFF" />
       </Pressable>
 
       <NavButton item={{ route: '/', label: 'Messages', icon: 'message.fill' }} active={false} onPress={() => {}} />
@@ -55,7 +55,7 @@ function NavButton({
   active: boolean;
   onPress: () => void;
 }) {
-  const color = active ? Colors.light.primary : Colors.light.textSecondary;
+  const color = active ? KoroColors.blue : KoroColors.textSecondary;
 
   return (
     <Pressable onPress={onPress} style={styles.navButton}>
@@ -65,9 +65,11 @@ function NavButton({
             ? 'home-outline'
             : item.icon === 'doc.text.fill'
               ? 'document-text-outline'
-              : 'person-outline'
+              : item.icon === 'message.fill'
+                ? 'chatbubble-ellipses-outline'
+                : 'person-outline'
         }
-        size={20}
+        size={KoroIconSize.sm}
         color={color}
       />
       <Text style={[styles.navLabel, { color }]}>{item.label}</Text>
@@ -98,33 +100,27 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   navLabel: {
-    fontSize: 9,
-    fontFamily: 'Poppins_800ExtraBold',
+    fontSize: KoroTypography.nav.fontSize,
+    lineHeight: KoroTypography.nav.lineHeight,
+    fontFamily: KoroTypography.nav.fontFamily,
     fontWeight: '800',
   },
   plusButton: {
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: Colors.light.primary,
+
+    backgroundColor: KoroColors.blue,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: -24,
     borderWidth: 4,
-    borderColor: Colors.light.background,
-    shadowColor: '#0B1220',
-    shadowOpacity: 0.18,
-    shadowRadius: 12,
-    shadowOffset: { width: 0, height: 5 },
-    elevation: 8,
-  },
-  plusText: {
-    color: '#FFFFFF',
-    fontSize: 30,
-    lineHeight: 32,
-    fontFamily: 'Poppins_500Medium',
-    fontWeight: '500',
-    marginTop: -2,
+    borderColor: KoroColors.background,
+    shadowColor: KoroShadow.floating.shadowColor,
+    shadowOpacity: KoroShadow.floating.shadowOpacity,
+    shadowRadius: KoroShadow.floating.shadowRadius,
+    shadowOffset: KoroShadow.floating.shadowOffset,
+    elevation: KoroShadow.floating.elevation,
   },
   pressed: {
     opacity: 0.8,
