@@ -7,6 +7,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Validation\ValidationException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -30,6 +31,20 @@ return Application::configure(basePath: dirname(__DIR__))
                     code: 'UNAUTHORIZED',
                     message: 'Authentification requise.',
                     status: 401
+                );
+            }
+        });
+
+        $exceptions->render(function (
+            ValidationException $exception,
+            Request $request
+        ) {
+            if ($request->is('api/*')) {
+                return ReponseApi::erreur(
+                    code: 'VALIDATION_ERROR',
+                    message: 'Les données sont invalides.',
+                    fields: $exception->errors(),
+                    status: 422
                 );
             }
         });
